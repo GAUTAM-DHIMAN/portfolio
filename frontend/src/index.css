@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+/* ── CSS Variables ── */
+:root {
+  --neon-cyan: #1a1a1a;
+  --neon-purple: #1a1a1a;
+  --neon-blue: #2a2a2a;
+  --neon-pink: #dcdcd5;
+  --bg-primary: #f4f1eb;   /* Light beige */
+  --bg-secondary: #e8e4db;
+  --bg-card: #f8f6f2;
+  --text-primary: #3b342d; /* Dark muted brown/gray */
+  --text-secondary: #5c5248;
+  --text-accent: #3b342d;
+  --border-glow: rgba(0, 0, 0, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-border: rgba(0, 0, 0, 0.05);
+}
+
+/* ── Base Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple));
+  border-radius: 10px;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* ── Selection ── */
+::selection {
+  background: rgba(0, 243, 255, 0.25);
+  color: var(--neon-cyan);
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Glassmorphism ── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Minimal Flat Utilities ── */
+.glow-cyan, .glow-purple {
+  text-shadow: none;
+  font-weight: 700;
+}
+
+.neon-border {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: transparent;
+}
+
+/* ── Typography Resets ── */
+.gradient-text, .gradient-text-cyan-blue {
+  background: none;
+  -webkit-text-fill-color: var(--text-primary);
+  color: var(--text-primary);
+  font-weight: 800;
+}
+
+/* ── Background Spots ── */
+.bg-radial-cyan {
+  background: radial-gradient(ellipse at center, rgba(230,225,215, 0.5) 0%, transparent 70%);
+}
+.bg-radial-purple {
+  background: radial-gradient(ellipse at center, rgba(220,215,200, 0.5) 0%, transparent 70%);
+}
+
+/* ── Section Styling ── */
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* ── Button Styles ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue));
+  color: #080810;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  border: none;
+  cursor: none;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.1);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.btn-primary:hover::after { opacity: 1; }
+.btn-primary:hover {
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.5), 0 0 60px rgba(0, 102, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 32px;
+  background: transparent;
+  color: var(--neon-cyan);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 243, 255, 0.5);
+  cursor: none;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  background: rgba(0, 243, 255, 0.1);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ── Animated Grid Background ── */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── Loader Screen ── */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Custom Cursor ── */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--neon-cyan);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 10000;
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+  transition: transform 0.1s ease, opacity 0.2s ease;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(0, 243, 255, 0.6);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.12s ease;
+}
+
+/* ── Particle Canvas ── */
+#particles-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── Timeline ── */
+.timeline-line {
+  background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple), transparent);
+}
+
+/* ── Skill Bar ── */
+.skill-bar-fill {
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue), var(--neon-purple));
+  border-radius: 4px;
+  height: 100%;
+}
+
+/* ── No cursor for interactive elements ── */
+a, button, [role="button"] {
+  cursor: none;
+}
+
+/* ── Noise Texture Overlay ── */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.04;
+}
+
+/* ── Smooth Image Loading ── */
+img {
+  display: block;
+  max-width: 100%;
+}
