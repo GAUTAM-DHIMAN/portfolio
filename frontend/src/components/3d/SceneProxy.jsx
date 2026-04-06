@@ -17,7 +17,6 @@ export default function SceneProxy() {
         color="#c8bfa3" // Soft gold/bronze
         anchorX="center"
         anchorY="middle"
-        font="https://fonts.gstatic.com/s/outfit/v36/QGYyz_MVcBeNP4NJtEtqVoluVw.woff"
       >
         GD
       </Text>

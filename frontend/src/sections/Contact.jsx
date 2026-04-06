@@ -1,61 +1,71 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { FiMail, FiSend, FiUser, FiMessageSquare, FiCheckCircle, FiGithub, FiLinkedin } from 'react-icons/fi'
+import { FiMail, FiSend, FiUser, FiMessageSquare, FiCheckCircle, FiGithub, FiLinkedin, FiAlertCircle } from 'react-icons/fi'
 
 const contactInfo = [
   {
     icon: FiMail,
     label: 'Email',
-    value: 'gautam@example.com',
-    href: 'mailto:gautam@example.com',
-    color: '#00f3ff',
+    value: 'gautamdhiman@example.com',
+    href: 'mailto:gautamdhiman@example.com',
+    color: '#6366f1',
+    bg: 'rgba(99,102,241,0.08)',
+    border: 'rgba(99,102,241,0.2)',
   },
   {
     icon: FiGithub,
     label: 'GitHub',
-    value: 'github.com/gautam',
-    href: 'https://github.com',
-    color: '#7d2ae8',
+    value: 'github.com/gautamdhiman',
+    href: 'https://github.com/gautamdhiman',
+    color: '#8b5cf6',
+    bg: 'rgba(139,92,246,0.08)',
+    border: 'rgba(139,92,246,0.2)',
   },
   {
     icon: FiLinkedin,
     label: 'LinkedIn',
-    value: 'linkedin.com/in/gautam',
-    href: 'https://linkedin.com',
-    color: '#0066ff',
+    value: 'linkedin.com/in/gautamdhiman',
+    href: 'https://linkedin.com/in/gautamdhiman',
+    color: '#06b6d4',
+    bg: 'rgba(6,182,212,0.08)',
+    border: 'rgba(6,182,212,0.2)',
   },
 ]
 
-function InputField({ icon: Icon, label, id, type = 'text', placeholder, value, onChange, color = '#00f3ff', multiline }) {
+function InputField({ icon: Icon, label, id, type = 'text', placeholder, value, onChange, multiline }) {
   const [focused, setFocused] = useState(false)
 
   const baseStyle = {
-    background: 'white',
-    border: `1px solid ${focused ? color : 'rgba(0,0,0,0.08)'}`,
-    borderRadius: '10px',
+    background: 'rgba(248,249,251,0.8)',
+    border: `1.5px solid ${focused ? 'rgba(99,102,241,0.6)' : 'var(--border-medium)'}`,
+    borderRadius: '12px',
     color: 'var(--text-primary)',
-    fontFamily: "'Space Grotesk', sans-serif",
+    fontFamily: "'Inter', 'Space Grotesk', sans-serif",
     fontSize: '0.9rem',
     width: '100%',
-    padding: '12px 16px 12px 44px',
+    padding: '12px 16px 12px 46px',
     outline: 'none',
     transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
-    boxShadow: focused ? `0 0 0 3px ${color}15` : 'none',
+    boxShadow: focused ? '0 0 0 3px rgba(99,102,241,0.12)' : 'none',
     resize: multiline ? 'vertical' : undefined,
     minHeight: multiline ? '130px' : undefined,
   }
 
   return (
-    <div className="relative">
-      <label className="block text-xs font-semibold mb-2 text-[var(--text-secondary)] uppercase tracking-wide" htmlFor={id}>
+    <div>
+      <label
+        className="block text-xs font-semibold mb-2 uppercase tracking-wide"
+        htmlFor={id}
+        style={{ color: 'var(--text-muted)' }}
+      >
         {label}
       </label>
       <div className="relative">
         <Icon
           size={16}
           className="absolute left-3.5 top-3.5 pointer-events-none"
-          style={{ color: focused ? color : 'rgba(160,174,192,0.5)' }}
+          style={{ color: focused ? 'var(--accent-indigo)' : 'var(--text-muted)', transition: 'color 0.2s' }}
         />
         {multiline ? (
           <textarea
@@ -106,56 +116,83 @@ export default function Contact() {
       if (res.ok) {
         setStatus('success')
         setForm({ name: '', email: '', message: '' })
-        setTimeout(() => setStatus('idle'), 5000)
+        setTimeout(() => setStatus('idle'), 6000)
       } else {
         setStatus('error')
         setTimeout(() => setStatus('idle'), 3000)
       }
     } catch {
-      // Backend not running — simulate success for demo
+      // Backend not connected — simulate success for demo
       setStatus('success')
       setForm({ name: '', email: '', message: '' })
-      setTimeout(() => setStatus('idle'), 5000)
+      setTimeout(() => setStatus('idle'), 6000)
     }
   }
 
   return (
     <section id="contact" className="relative py-32 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6" ref={ref}>
+      {/* BG blobs */}
+      <div
+        className="absolute top-1/4 left-0 w-96 h-96 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 70%)', filter: 'blur(60px)' }}
+      />
+      <div
+        className="absolute bottom-0 right-0 w-80 h-80 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.07) 0%, transparent 70%)', filter: 'blur(60px)' }}
+      />
+
+      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 40px' }} ref={ref}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="mb-16 text-center"
+          className="mb-20 text-center"
         >
           <p
-            className="text-sm font-semibold tracking-widest uppercase mb-3 text-[var(--text-secondary)]"
-            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+            style={{
+              fontSize: '0.72rem',
+              fontWeight: 600,
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: 'var(--accent-indigo)',
+              fontFamily: "'JetBrains Mono', monospace",
+              marginBottom: '14px',
+            }}
           >
-            Let's Connect
+            let's talk
           </p>
-          <h2 className="section-title mb-4 text-[var(--text-primary)]">Get In Touch</h2>
-          <div className="w-16 h-1 mx-auto rounded-full bg-[var(--text-primary)] opacity-20" />
-          <p className="mt-4 text-[var(--text-secondary)] max-w-lg mx-auto">
-            Have a project in mind or want to collaborate? Drop a message — I typically respond within 24 hours.
+          <h2 className="section-title" style={{ marginBottom: '18px' }}>Get In Touch</h2>
+          <div style={{ width: '48px', height: '3px', borderRadius: '99px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6)', margin: '0 auto 16px' }} />
+          <p style={{ color: 'var(--text-secondary)', maxWidth: '480px', margin: '0 auto', fontSize: '1.02rem', lineHeight: 1.7 }}>
+            Have a project in mind or just want to say hi? Drop a message — I usually reply within a day.
           </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-10">
-          {/* Contact Info */}
+          {/* Contact info */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-2 flex flex-col gap-4"
           >
-            <div className="glass-card p-6 mb-2">
-              <h3 className="font-bold text-lg mb-2 text-[var(--text-primary)]" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                Open to Opportunities 🚀
+            <div
+              className="glass-card p-5 mb-1"
+              style={{
+                background: 'linear-gradient(135deg, rgba(99,102,241,0.06), rgba(139,92,246,0.04))',
+                borderColor: 'rgba(99,102,241,0.2)',
+              }}
+            >
+              <div className="text-2xl mb-3">🚀</div>
+              <h3
+                className="font-bold text-lg mb-2"
+                style={{ fontFamily: "'Outfit', sans-serif", color: 'var(--text-primary)' }}
+              >
+                Open to Opportunities
               </h3>
-              <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                Available for full-time roles, internships, and freelance projects in AI/ML, full-stack development, and cloud engineering.
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                Available for full-time roles, internships, and freelance projects in AI/ML, full-stack development, UI/UX design, and cloud engineering.
               </p>
             </div>
 
@@ -169,20 +206,21 @@ export default function Contact() {
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
                 className="glass-card p-4 flex items-center gap-4 group"
-                whileHover={{ x: 4 }}
-                id={`contact-info-${info.label.toLowerCase()}`}
+                style={{ borderColor: info.border }}
+                whileHover={{ x: 6, borderColor: info.color + '40' }}
+                id={`contact-link-${info.label.toLowerCase()}`}
               >
                 <div
                   className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ background: `${info.color}15`, border: `1px solid ${info.color}25` }}
+                  style={{ background: info.bg, border: `1px solid ${info.border}` }}
                 >
                   <info.icon size={18} style={{ color: info.color }} />
                 </div>
                 <div>
-                  <p className="text-xs text-[var(--text-secondary)] mb-0.5">{info.label}</p>
+                  <p className="text-xs mb-0.5" style={{ color: 'var(--text-muted)' }}>{info.label}</p>
                   <p
-                    className="text-sm font-semibold transition-colors text-[var(--text-primary)] group-hover:opacity-80"
-                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                    className="text-sm font-semibold"
+                    style={{ color: 'var(--text-primary)', fontFamily: "'JetBrains Mono', monospace" }}
                   >
                     {info.value}
                   </p>
@@ -191,36 +229,49 @@ export default function Contact() {
             ))}
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Contact form */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-3"
           >
-            <div className="glass-card p-8 relative overflow-hidden">
+            <div
+              className="glass-card p-8 relative overflow-hidden"
+              style={{
+                background: 'rgba(255,255,255,0.9)',
+                border: '1px solid rgba(99,102,241,0.15)',
+              }}
+            >
+              {/* Top gradient bar */}
+              <div
+                className="absolute top-0 left-0 right-0 h-0.5"
+                style={{ background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4)' }}
+              />
+
               <AnimatePresence mode="wait">
                 {status === 'success' ? (
                   <motion.div
                     key="success"
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.88 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    className="flex flex-col items-center justify-center py-12 text-center"
+                    exit={{ opacity: 0, scale: 0.88 }}
+                    className="flex flex-col items-center justify-center py-14 text-center"
                   >
                     <motion.div
                       initial={{ scale: 0, rotate: -180 }}
                       animate={{ scale: 1, rotate: 0 }}
                       transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
+                      style={{ color: '#10b981' }}
                     >
-                      <FiCheckCircle size={64} style={{ color: '#10b981' }} />
+                      <FiCheckCircle size={64} />
                     </motion.div>
                     <motion.h3
-                      initial={{ opacity: 0, y: 10 }}
+                      initial={{ opacity: 0, y: 12 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 }}
-                      className="text-2xl font-bold text-[var(--text-primary)] mt-6 mb-2"
-                      style={{ fontFamily: "'Outfit', sans-serif" }}
+                      className="text-2xl font-bold mt-6 mb-2"
+                      style={{ fontFamily: "'Outfit', sans-serif", color: 'var(--text-primary)' }}
                     >
                       Message Sent! 🎉
                     </motion.h3>
@@ -228,9 +279,9 @@ export default function Contact() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.4 }}
-                      className="text-[var(--text-secondary)] text-sm"
+                      style={{ color: 'var(--text-secondary)' }}
                     >
-                      Thanks for reaching out. I'll get back to you within 24 hours.
+                      Thanks for reaching out. I&apos;ll get back to you within 24 hours.
                     </motion.p>
                   </motion.div>
                 ) : (
@@ -273,7 +324,7 @@ export default function Contact() {
                     <motion.button
                       type="submit"
                       disabled={status === 'loading'}
-                      className="btn-primary justify-center w-full"
+                      className="btn-primary justify-center w-full py-3"
                       id="contact-submit"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -281,7 +332,7 @@ export default function Contact() {
                       {status === 'loading' ? (
                         <>
                           <motion.div
-                            className="w-4 h-4 border-2 border-current border-t-transparent rounded-full"
+                            className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
                             animate={{ rotate: 360 }}
                             transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
                           />
@@ -299,8 +350,9 @@ export default function Contact() {
                       <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="text-center text-sm text-red-400"
+                        className="flex items-center justify-center gap-2 text-sm text-red-500"
                       >
+                        <FiAlertCircle size={15} />
                         Something went wrong. Please try again.
                       </motion.p>
                     )}

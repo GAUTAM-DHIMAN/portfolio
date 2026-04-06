@@ -2,8 +2,10 @@ import { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Loader({ onComplete }) {
+  const progressRef = useRef(null)
+
   useEffect(() => {
-    const timer = setTimeout(onComplete, 3800)
+    const timer = setTimeout(onComplete, 3600)
     return () => clearTimeout(timer)
   }, [onComplete])
 
@@ -11,111 +13,151 @@ export default function Loader({ onComplete }) {
     <AnimatePresence>
       <motion.div
         key="loader"
-        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black overflow-hidden"
-        exit={{ opacity: 0, scale: 1.05 }}
-        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
+        style={{ background: '#050b18' }}
+        exit={{ opacity: 0, scale: 1.04, filter: 'blur(8px)' }}
+        transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
       >
-        {/* Radial background pulse */}
+        {/* Radial background glow */}
         <motion.div
-          className="absolute inset-0"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at center, rgba(0, 243, 255, 0.08) 0%, transparent 65%)',
+            background: 'radial-gradient(ellipse at 50% 50%, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.08) 30%, transparent 70%)',
           }}
-          animate={{ opacity: [0, 1, 0.6, 1] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        {/* Horizontal scan line */}
+        {/* Grid overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-10"
+          style={{
+            backgroundImage: `linear-gradient(rgba(99,102,241,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.3) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
+
+        {/* Scan line */}
         <motion.div
           className="absolute w-full h-px"
-          style={{ background: 'linear-gradient(90deg, transparent, #00f3ff, transparent)' }}
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(99,102,241,0.6), transparent)' }}
           initial={{ top: '0%', opacity: 0 }}
           animate={{ top: ['0%', '100%'], opacity: [0, 1, 0] }}
           transition={{ duration: 2.5, ease: 'easeInOut', delay: 0.3 }}
         />
 
-        {/* Logo container */}
-        <div className="relative flex flex-col items-center gap-6">
-          {/* G.D. initials */}
-          <div className="relative flex items-center gap-2">
-            {['G', '.', 'D', '.'].map((char, i) => (
+        {/* Main logo container */}
+        <div className="relative flex flex-col items-center gap-8">
+          {/* Initials */}
+          <div className="relative flex items-center gap-1">
+            {['G', 'D'].map((char, i) => (
               <motion.span
                 key={i}
-                initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+                initial={{ opacity: 0, y: 60, filter: 'blur(20px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 transition={{
-                  delay: 0.4 + i * 0.15,
-                  duration: 0.7,
+                  delay: 0.3 + i * 0.2,
+                  duration: 0.9,
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 style={{
                   fontFamily: "'Outfit', sans-serif",
-                  fontSize: char === '.' ? '3rem' : '7rem',
+                  fontSize: 'clamp(5rem, 12vw, 8rem)',
                   fontWeight: 900,
                   lineHeight: 1,
                   letterSpacing: '-0.04em',
-                  background: char === '.'
-                    ? 'rgba(0, 243, 255, 0.5)'
-                    : 'linear-gradient(135deg, #00f3ff, #7d2ae8)',
+                  background: i === 0
+                    ? 'linear-gradient(135deg, #60a5fa, #818cf8)'
+                    : 'linear-gradient(135deg, #818cf8, #c084fc)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
-                  alignSelf: char === '.' ? 'flex-end' : 'auto',
-                  paddingBottom: char === '.' ? '12px' : '0',
                 }}
               >
                 {char}
               </motion.span>
             ))}
 
-            {/* Glow ring around logo */}
-            <motion.div
-              className="absolute -inset-6 rounded-full"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: [0, 0.6, 0], scale: [0.8, 1.4, 1.8] }}
-              transition={{ delay: 1.2, duration: 1.5, ease: 'easeOut' }}
+            {/* Dot separator */}
+            <motion.span
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.8, duration: 0.5, type: 'spring' }}
               style={{
-                background: 'radial-gradient(circle, rgba(0, 243, 255, 0.15) 0%, transparent 70%)',
-                pointerEvents: 'none',
+                fontFamily: "'Outfit', sans-serif",
+                fontSize: 'clamp(3rem, 6vw, 4.5rem)',
+                fontWeight: 900,
+                color: 'rgba(99,102,241,0.6)',
+                alignSelf: 'flex-end',
+                paddingBottom: '10px',
+                lineHeight: 1,
+              }}
+            >
+              .
+            </motion.span>
+
+            {/* Glow ring */}
+            <motion.div
+              className="absolute -inset-8 rounded-full pointer-events-none"
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: [0, 0.4, 0], scale: [0.8, 1.5, 2] }}
+              transition={{ delay: 1.0, duration: 1.8, ease: 'easeOut' }}
+              style={{
+                background: 'radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%)',
               }}
             />
           </div>
 
           {/* Tagline */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4, duration: 0.6 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
             style={{
               fontFamily: "'JetBrains Mono', monospace",
-              fontSize: '0.85rem',
-              color: 'rgba(0, 243, 255, 0.7)',
-              letterSpacing: '0.35em',
+              fontSize: '0.78rem',
+              color: 'rgba(99,102,241,0.7)',
+              letterSpacing: '0.4em',
               textTransform: 'uppercase',
             }}
           >
-            AI/ML · Full Stack · Cloud
+            AI/ML · Full Stack · UI/UX · Cloud
           </motion.div>
 
           {/* Loading bar */}
           <motion.div
-            className="relative w-64 h-px overflow-hidden"
+            className="relative w-72 h-px overflow-hidden rounded-full"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.6 }}
-            style={{ background: 'rgba(255,255,255,0.1)' }}
+            transition={{ delay: 1.5 }}
+            style={{ background: 'rgba(255,255,255,0.08)' }}
           >
             <motion.div
-              className="absolute inset-y-0 left-0"
+              className="absolute inset-y-0 left-0 rounded-full"
               initial={{ width: '0%' }}
               animate={{ width: '100%' }}
-              transition={{ delay: 1.7, duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
-              style={{ background: 'linear-gradient(90deg, #00f3ff, #7d2ae8)' }}
+              transition={{ delay: 1.6, duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
+              style={{ background: 'linear-gradient(90deg, #60a5fa, #818cf8, #c084fc)' }}
             />
+          </motion.div>
+
+          {/* Loading percentage */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.7 }}
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: '0.7rem',
+              color: 'rgba(255,255,255,0.25)',
+              letterSpacing: '0.2em',
+            }}
+          >
+            Loading experience...
           </motion.div>
         </div>
 
-        {/* Corner decorations */}
+        {/* Corner brackets */}
         {[
           { top: 24, left: 24, borderTop: '2px solid', borderLeft: '2px solid' },
           { top: 24, right: 24, borderTop: '2px solid', borderRight: '2px solid' },
@@ -125,10 +167,10 @@ export default function Loader({ onComplete }) {
           <motion.div
             key={i}
             className="absolute w-8 h-8"
-            style={{ ...style, borderColor: 'rgba(0, 243, 255, 0.4)' }}
+            style={{ ...style, borderColor: 'rgba(99,102,241,0.4)' }}
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
+            transition={{ delay: 0.1 + i * 0.08, duration: 0.5 }}
           />
         ))}
       </motion.div>

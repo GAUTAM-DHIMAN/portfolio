@@ -7,32 +7,42 @@ export default function CustomCursor() {
   const ringX = useMotionValue(-100)
   const ringY = useMotionValue(-100)
 
-  const springConfig = { damping: 20, stiffness: 300, mass: 0.5 }
+  const springConfig = { damping: 22, stiffness: 320, mass: 0.4 }
   const smoothRingX = useSpring(ringX, springConfig)
   const smoothRingY = useSpring(ringY, springConfig)
 
-  const isHoveringRef = useRef(false)
+  const dotRef = useRef(null)
+  const ringRef = useRef(null)
 
   useEffect(() => {
     const moveCursor = (e) => {
       cursorX.set(e.clientX - 4)
       cursorY.set(e.clientY - 4)
-      ringX.set(e.clientX - 18)
-      ringY.set(e.clientY - 18)
+      ringX.set(e.clientX - 19)
+      ringY.set(e.clientY - 19)
     }
 
     const handleMouseOver = (e) => {
-      if (e.target.closest('a, button, [role="button"], .tilt-card')) {
-        isHoveringRef.current = true
-      }
-    }
-    const handleMouseOut = (e) => {
-      if (e.target.closest('a, button, [role="button"], .tilt-card')) {
-        isHoveringRef.current = false
+      const isInteractive = e.target.closest('a, button, [role="button"], input, textarea, select, label')
+      if (isInteractive) {
+        dotRef.current?.style.setProperty('transform', 'scale(1.5)')
+        dotRef.current?.style.setProperty('background', '#818cf8')
+        ringRef.current?.style.setProperty('transform', 'scale(1.6)')
+        ringRef.current?.style.setProperty('border-color', 'rgba(129,140,248,0.7)')
       }
     }
 
-    window.addEventListener('mousemove', moveCursor)
+    const handleMouseOut = (e) => {
+      const isInteractive = e.target.closest('a, button, [role="button"], input, textarea, select, label')
+      if (isInteractive) {
+        dotRef.current?.style.setProperty('transform', 'scale(1)')
+        dotRef.current?.style.setProperty('background', 'var(--accent-indigo)')
+        ringRef.current?.style.setProperty('transform', 'scale(1)')
+        ringRef.current?.style.setProperty('border-color', 'rgba(99,102,241,0.5)')
+      }
+    }
+
+    window.addEventListener('mousemove', moveCursor, { passive: true })
     window.addEventListener('mouseover', handleMouseOver)
     window.addEventListener('mouseout', handleMouseOut)
 
@@ -41,24 +51,23 @@ export default function CustomCursor() {
       window.removeEventListener('mouseover', handleMouseOver)
       window.removeEventListener('mouseout', handleMouseOut)
     }
-  }, [])
+  }, [cursorX, cursorY, ringX, ringY])
 
   return (
     <>
-      {/* Dot */}
       <motion.div
+        ref={dotRef}
         className="cursor-dot"
-        style={{ x: cursorX, y: cursorY }}
-        transition={{ duration: 0 }}
+        style={{ x: cursorX, y: cursorY, transition: 'transform 0.15s ease, background 0.2s ease' }}
       />
-      {/* Ring */}
       <motion.div
-        style={{ x: smoothRingX, y: smoothRingY }}
-        className="cursor-ring"
-        animate={{
-          scale: isHoveringRef.current ? 1.6 : 1,
-          opacity: 1,
+        ref={ringRef}
+        style={{
+          x: smoothRingX,
+          y: smoothRingY,
+          transition: 'transform 0.2s ease, border-color 0.2s ease',
         }}
+        className="cursor-ring"
       />
     </>
   )

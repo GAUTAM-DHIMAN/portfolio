@@ -3,9 +3,8 @@ import { AnimatePresence } from 'framer-motion'
 
 import Loader from './components/Loader'
 import CustomCursor from './components/CustomCursor'
+import ScrollProgress from './components/ScrollProgress'
 import Navbar from './components/Navbar'
-
-import Experience3D from './components/3d/Experience3D'
 
 import Hero from './sections/Hero'
 import About from './sections/About'
@@ -26,30 +25,30 @@ export default function App() {
   return (
     <>
       <CustomCursor />
+      <ScrollProgress />
 
       <AnimatePresence>
         {loading && <Loader onComplete={handleLoaderComplete} />}
       </AnimatePresence>
 
       {!loading && (
-        <Experience3D>
-          <div className="portfolio-wrapper text-white hide-scrollbar pointer-events-auto">
-            {/* The actual HTML portfolio is now mapped onto the 3D laptop screen */}
-            <Navbar />
-            <main>
-              <Hero />
-              <About />
-              <Skills />
-              <Experience />
-              <Projects />
-              <Education />
-              <Contact />
-            </main>
-            <Footer />
-          </div>
-        </Experience3D>
+        <div
+          className="relative min-h-screen"
+          style={{ background: 'var(--bg-primary)' }}
+        >
+          <Navbar />
+          <main>
+            <Hero />
+            <About />
+            <Skills />
+            <Experience />
+            <Projects />
+            <Education />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
       )}
     </>
   )
 }
-

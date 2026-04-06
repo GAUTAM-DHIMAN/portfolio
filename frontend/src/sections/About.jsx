@@ -1,191 +1,363 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { FiCode, FiCpu, FiDatabase, FiCloud } from 'react-icons/fi'
+import { FiCode, FiCpu, FiCloud, FiLayout } from 'react-icons/fi'
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 40 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
-})
-
-const cards = [
+const specialties = [
   {
     icon: FiCpu,
     title: 'AI & Machine Learning',
-    desc: 'Specializing in intelligent systems, data pipelines, and ML model integration to solve real-world problems.',
-    color: '#00f3ff',
+    desc: 'Data pipelines, ML model integration, AI-driven automation.',
+    color: '#6366f1',
+    bg: 'rgba(99,102,241,0.07)',
+    border: 'rgba(99,102,241,0.18)',
   },
   {
     icon: FiCode,
     title: 'Full Stack Development',
-    desc: 'Building end-to-end web applications using React, FastAPI, and Node.js with clean, scalable architecture.',
-    color: '#7d2ae8',
+    desc: 'React frontends, FastAPI & Node.js backends, end-to-end apps.',
+    color: '#8b5cf6',
+    bg: 'rgba(139,92,246,0.07)',
+    border: 'rgba(139,92,246,0.18)',
   },
   {
-    icon: FiDatabase,
-    title: 'Backend & APIs',
-    desc: 'Designing robust REST APIs, database schemas, and data pipelines optimized for performance and reliability.',
-    color: '#0066ff',
+    icon: FiLayout,
+    title: 'UI / UX Design',
+    desc: 'Figma, Photoshop, Sketch, Adobe XD — pixels & prototypes.',
+    color: '#ec4899',
+    bg: 'rgba(236,72,153,0.07)',
+    border: 'rgba(236,72,153,0.18)',
   },
   {
     icon: FiCloud,
-    title: 'Cloud & DevOps',
-    desc: 'Deploying apps on AWS (EC2, S3, RDS), automating workflows with CLI & Boto3, and monitoring with CloudWatch.',
-    color: '#ff006e',
+    title: 'Cloud & AWS',
+    desc: 'EC2, S3, IAM, RDS, CloudWatch, Boto3 automation.',
+    color: '#06b6d4',
+    bg: 'rgba(6,182,212,0.07)',
+    border: 'rgba(6,182,212,0.18)',
   },
 ]
 
 export default function About() {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 })
-  const [cardsRef, cardsInView] = useInView({ triggerOnce: true, threshold: 0.1 })
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.12 })
+  const [cardsRef, cardsInView] = useInView({ triggerOnce: true, threshold: 0.08 })
 
   return (
-    <section id="about" className="relative py-32 overflow-hidden" ref={ref}>
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Section Header */}
+    <section
+      id="about"
+      style={{ position: 'relative', padding: '120px 0', overflow: 'hidden' }}
+      ref={ref}
+    >
+      {/* subtle bg blob */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '480px',
+          height: '480px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* ── centred container ── */}
+      <div
+        style={{
+          maxWidth: '1100px',
+          margin: '0 auto',
+          padding: '0 40px',
+        }}
+      >
+
+        {/* ── Section heading — less template-y ── */}
         <motion.div
-          {...fadeUp(0)}
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="mb-16 text-center"
+          transition={{ duration: 0.65 }}
+          style={{ marginBottom: '72px', textAlign: 'center' }}
         >
           <p
-            className="text-sm font-semibold tracking-widest uppercase mb-3 text-[var(--text-secondary)]"
-            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+            style={{
+              fontSize: '0.72rem',
+              fontWeight: 600,
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: 'var(--accent-indigo)',
+              fontFamily: "'JetBrains Mono', monospace",
+              marginBottom: '14px',
+            }}
           >
-            Who I Am
+            a bit about me
           </p>
-          <h2 className="section-title mb-4 text-[var(--text-primary)]">About Me</h2>
-          <div className="w-16 h-1 mx-auto rounded-full bg-[var(--text-primary)] opacity-20" />
+          <h2
+            className="section-title"
+            style={{ marginBottom: '18px' }}
+          >
+            Who I am
+          </h2>
+          {/* squiggly-ish underline */}
+          <div
+            style={{
+              width: '48px',
+              height: '3px',
+              borderRadius: '99px',
+              background: 'linear-gradient(90deg, #6366f1, #8b5cf6)',
+              margin: '0 auto',
+            }}
+          />
         </motion.div>
 
-        {/* Main content */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          {/* Text */}
+        {/* ── 2-col layout ── */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+            gap: '72px',
+            alignItems: 'start',
+            marginBottom: '88px',
+          }}
+        >
+          {/* Left — text */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -28 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.75, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-lg leading-relaxed mb-6" style={{ color: 'var(--text-secondary)' }}>
-              Computer Science student specializing in{' '}
-              <span className="font-semibold text-[var(--text-primary)]">AI & Machine Learning</span>{' '}
-              with strong skills in backend development, data structures, and scalable system design.
-            </p>
-            <p className="text-lg leading-relaxed mb-6" style={{ color: 'var(--text-secondary)' }}>
-              Experienced in building{' '}
-              <span className="font-semibold text-[var(--text-primary)]">APIs, data pipelines</span>, and
-              real-world applications using Python and React. Passionate about solving complex
-              problems and contributing to AI-driven systems.
-            </p>
-            <p className="text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Currently pursuing{' '}
-              <span className="font-semibold text-[var(--text-primary)]">B.E. CSE (AI/ML)</span>{' '}
-              at Chandigarh University, with hands-on experience across AWS cloud infrastructure,
-              UI/UX design, and modern web development.
+            <p
+              style={{
+                fontSize: '1.07rem',
+                lineHeight: 1.8,
+                color: 'var(--text-secondary)',
+                marginBottom: '22px',
+              }}
+            >
+              I'm a CS student specialising in{' '}
+              <strong style={{ color: '#6366f1', fontWeight: 700 }}>AI & Machine Learning</strong>{' '}
+              at Chandigarh University. I like building things that actually work — clean code on the
+              back, something beautiful on the front.
             </p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 mt-10">
+            <p
+              style={{
+                fontSize: '1.07rem',
+                lineHeight: 1.8,
+                color: 'var(--text-secondary)',
+                marginBottom: '22px',
+              }}
+            >
+              Outside of coding I have a genuine interest in{' '}
+              <strong style={{ color: '#ec4899', fontWeight: 700 }}>design</strong> — I use Figma,
+              Photoshop, and Adobe XD regularly and try to bridge the gap between how something looks
+              and how it feels to use.
+            </p>
+
+            <p
+              style={{
+                fontSize: '1.07rem',
+                lineHeight: 1.8,
+                color: 'var(--text-secondary)',
+              }}
+            >
+              I've interned in AWS cloud, UI/UX design, and web development — three pretty different
+              worlds that ended up giving me a useful 360° view of building software.
+            </p>
+
+            {/* Numbers — simple, airy */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '16px',
+                marginTop: '44px',
+              }}
+            >
               {[
-                { num: '200+', label: 'DSA Problems' },
-                { num: '3+', label: 'Internships' },
-                { num: '4+', label: 'Projects Built' },
-              ].map(({ num, label }) => (
-                <div key={label} className="glass-card p-4 text-center">
+                { num: '200+', label: 'DSA problems', color: '#6366f1' },
+                { num: '3', label: 'internships', color: '#8b5cf6' },
+                { num: '7+', label: 'projects', color: '#06b6d4' },
+              ].map(({ num, label, color }) => (
+                <motion.div
+                  key={label}
+                  style={{
+                    padding: '18px 12px',
+                    borderRadius: '18px',
+                    background: 'rgba(255,255,255,0.8)',
+                    border: '1px solid var(--border-light)',
+                    textAlign: 'center',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+                  }}
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.18 }}
+                >
                   <div
-                    className="text-2xl font-black mb-1 text-[var(--text-primary)]"
-                    style={{ fontFamily: "'Outfit', sans-serif" }}
+                    style={{
+                      fontFamily: "'Outfit', sans-serif",
+                      fontWeight: 900,
+                      fontSize: '1.6rem',
+                      color,
+                      lineHeight: 1.1,
+                      marginBottom: '4px',
+                    }}
                   >
                     {num}
                   </div>
-                  <div className="text-xs text-[var(--text-secondary)]">{label}</div>
-                </div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 500 }}>
+                    {label}
+                  </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
 
-          {/* Visual — animated code block */}
+          {/* Right — code card */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 28 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="relative"
+            transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            style={{ position: 'relative' }}
           >
-            <div className="glass-card p-6 rounded-2xl relative overflow-hidden bg-[#242424]">
-              {/* Window dots */}
-              <div className="flex gap-2 mb-5">
+            <div
+              style={{
+                position: 'absolute',
+                inset: '-20px',
+                borderRadius: '30px',
+                background: 'radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%)',
+                filter: 'blur(30px)',
+                pointerEvents: 'none',
+              }}
+            />
+            <div
+              style={{
+                position: 'relative',
+                background: '#0d1117',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderRadius: '20px',
+                padding: '24px',
+                boxShadow: '0 24px 60px rgba(0,0,0,0.18)',
+              }}
+            >
+              {/* title bar dots */}
+              <div style={{ display: 'flex', gap: '6px', marginBottom: '20px', alignItems: 'center' }}>
                 {['#ff5f57', '#febc2e', '#28c840'].map((c) => (
-                  <div key={c} className="w-3 h-3 rounded-full" style={{ background: c }} />
+                  <div key={c} style={{ width: '11px', height: '11px', borderRadius: '50%', background: c }} />
                 ))}
+                <span
+                  style={{
+                    marginLeft: 'auto',
+                    fontSize: '0.72rem',
+                    color: 'rgba(255,255,255,0.25)',
+                    fontFamily: "'JetBrains Mono', monospace",
+                  }}
+                >
+                  gautam.js
+                </span>
               </div>
               <pre
-                className="text-sm leading-relaxed overflow-x-auto text-[var(--text-primary)]"
-                style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: '0.8rem',
+                  lineHeight: 1.8,
+                  overflowX: 'auto',
+                }}
               >
                 <code>
-                  <span style={{ color: '#569cd6' }}>const</span>
-                  <span style={{ color: '#fff' }}> gautam </span>
-                  <span style={{ color: '#d4d4d4' }}>= {'{'}</span>
+                  <span style={{ color: '#79c0ff' }}>const </span>
+                  <span style={{ color: '#c9d1d9' }}>me = {'{'}</span>
                   {'\n'}
-                  <span style={{ color: '#9cdcfe' }}>  name</span>
-                  <span style={{ color: '#d4d4d4' }}>:</span>
-                  <span style={{ color: '#ce9178' }}> "Gautam Dhiman"</span>
-                  <span style={{ color: '#d4d4d4' }}>,</span>
+                  <span style={{ color: '#79c0ff' }}>  name</span>
+                  <span style={{ color: '#c9d1d9' }}>: </span>
+                  <span style={{ color: '#a5d6ff' }}>"Gautam Dhiman"</span>
+                  <span style={{ color: '#c9d1d9' }}>,</span>
                   {'\n'}
-                  <span style={{ color: '#9cdcfe' }}>  role</span>
-                  <span style={{ color: '#d4d4d4' }}>:</span>
-                  <span style={{ color: '#ce9178' }}> "AI/ML, Full Stack, UI/UX"</span>
-                  <span style={{ color: '#d4d4d4' }}>,</span>
+                  <span style={{ color: '#79c0ff' }}>  based</span>
+                  <span style={{ color: '#c9d1d9' }}>: </span>
+                  <span style={{ color: '#a5d6ff' }}>"Chandigarh, India 🇮🇳"</span>
+                  <span style={{ color: '#c9d1d9' }}>,</span>
                   {'\n'}
-                  <span style={{ color: '#9cdcfe' }}>  university</span>
-                  <span style={{ color: '#d4d4d4' }}>:</span>
-                  <span style={{ color: '#ce9178' }}> "Chandigarh Univ"</span>
-                  <span style={{ color: '#d4d4d4' }}>,</span>
+                  <span style={{ color: '#79c0ff' }}>  studying</span>
+                  <span style={{ color: '#c9d1d9' }}>: </span>
+                  <span style={{ color: '#a5d6ff' }}>"B.E. CSE (AI/ML)"</span>
+                  <span style={{ color: '#c9d1d9' }}>,</span>
                   {'\n'}
-                  <span style={{ color: '#9cdcfe' }}>  skills</span>
-                  <span style={{ color: '#d4d4d4' }}>: [</span>
+                  <span style={{ color: '#79c0ff' }}>  loves</span>
+                  <span style={{ color: '#c9d1d9' }}>: [</span>
+                  <span style={{ color: '#a5d6ff' }}>"building"</span>
+                  <span style={{ color: '#c9d1d9' }}>, </span>
+                  <span style={{ color: '#a5d6ff' }}>"design"</span>
+                  <span style={{ color: '#c9d1d9' }}>, </span>
+                  <span style={{ color: '#a5d6ff' }}>"coffee"</span>
+                  <span style={{ color: '#c9d1d9' }}>],</span>
                   {'\n'}
-                  <span style={{ color: '#ce9178' }}>    "Python"</span>
-                  <span style={{ color: '#d4d4d4' }}>,</span>
-                  <span style={{ color: '#ce9178' }}> "React"</span>
-                  <span style={{ color: '#d4d4d4' }}>,</span>
+                  <span style={{ color: '#79c0ff' }}>  currentlyLearning</span>
+                  <span style={{ color: '#c9d1d9' }}>: </span>
+                  <span style={{ color: '#a5d6ff' }}>"more AI stuff 🤖"</span>
                   {'\n'}
-                  <span style={{ color: '#ce9178' }}>    "Figma"</span>
-                  <span style={{ color: '#d4d4d4' }}>,</span>
-                  <span style={{ color: '#ce9178' }}> "AWS"</span>
-                  {'\n'}
-                  <span style={{ color: '#d4d4d4' }}>  ],</span>
-                  {'\n'}
-                  <span style={{ color: '#9cdcfe' }}>  passion</span>
-                  <span style={{ color: '#d4d4d4' }}>:</span>
-                  <span style={{ color: '#ce9178' }}> "Building the future"</span>
-                  {'\n'}
-                  <span style={{ color: '#d4d4d4' }}>{'}'};</span>
+                  <span style={{ color: '#c9d1d9' }}>{'}'}</span>
+                  <span style={{ color: '#c9d1d9' }}>;</span>
                 </code>
               </pre>
             </div>
           </motion.div>
         </div>
 
-        {/* Specialty Cards */}
-        <div ref={cardsRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {cards.map((card, i) => (
+        {/* ── Specialty cards ── */}
+        <div ref={cardsRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+          {specialties.map((card, i) => (
             <motion.div
               key={card.title}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 32 }}
               animate={cardsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="glass-card p-6 group"
+              transition={{ delay: i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                padding: '24px',
+                borderRadius: '20px',
+                background: card.bg,
+                border: `1px solid ${card.border}`,
+                position: 'relative',
+                overflow: 'hidden',
+                cursor: 'default',
+              }}
               whileHover={{ y: -6 }}
             >
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ background: `rgba(0,0,0,0.04)`, border: `1px solid rgba(0,0,0,0.05)` }}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '2px',
+                  background: `linear-gradient(90deg, ${card.color}, transparent)`,
+                }}
+              />
+              <div
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '14px',
+                  background: `${card.color}18`,
+                  border: `1px solid ${card.border}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '16px',
+                }}
               >
-                <card.icon size={22} style={{ color: 'var(--text-primary)' }} />
+                <card.icon size={20} style={{ color: card.color }} />
               </div>
-              <h3 className="font-bold text-base mb-2 text-[var(--text-primary)]">{card.title}</h3>
-              <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
+              <h3
+                style={{
+                  fontFamily: "'Outfit', sans-serif",
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
+                  color: 'var(--text-primary)',
+                  marginBottom: '8px',
+                }}
+              >
+                {card.title}
+              </h3>
+              <p style={{ fontSize: '0.83rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
                 {card.desc}
               </p>
             </motion.div>

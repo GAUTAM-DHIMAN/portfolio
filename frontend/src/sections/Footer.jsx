@@ -1,122 +1,126 @@
 import { motion } from 'framer-motion'
-import { FiGithub, FiLinkedin, FiMail, FiArrowUp } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiMail, FiHeart } from 'react-icons/fi'
 
 const links = [
+  { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
-  { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Education', href: '#education' },
   { label: 'Contact', href: '#contact' },
 ]
 
 const socials = [
-  { icon: FiGithub, href: 'https://github.com', label: 'GitHub' },
-  { icon: FiLinkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: FiMail, href: 'mailto:gautam@example.com', label: 'Email' },
+  { icon: FiGithub, href: 'https://github.com/gautamdhiman', label: 'GitHub' },
+  { icon: FiLinkedin, href: 'https://linkedin.com/in/gautamdhiman', label: 'LinkedIn' },
+  { icon: FiMail, href: 'mailto:gautamdhiman@example.com', label: 'Email' },
 ]
 
 export default function Footer() {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
-
   const handleNavClick = (href) => {
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
-    <footer className="relative border-t mt-10" style={{ borderColor: 'rgba(0,0,0,0.05)' }}>
+    <footer
+      className="relative py-14 overflow-hidden"
+      style={{ background: '#0a0f1e', borderTop: '1px solid rgba(99,102,241,0.15)' }}
+    >
+      {/* Background gradient */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.08) 0%, transparent 60%)' }}
+      />
 
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex flex-col items-center gap-8">
           {/* Logo */}
           <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
             className="flex items-center gap-3"
-            whileHover={{ scale: 1.03 }}
           >
             <div
-              className="w-10 h-10 rounded-lg flex items-center justify-center font-black text-lg bg-white"
-              style={{
-                fontFamily: "'Outfit', sans-serif",
-                color: 'var(--text-primary)',
-                border: '1px solid rgba(0,0,0,0.05)',
-                boxShadow: '0 4px 6px rgba(0,0,0,0.02)',
-              }}
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-black text-base"
+              style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}
             >
-              GD
+              G
             </div>
             <div>
-              <p className="font-bold text-[var(--text-primary)]" style={{ fontFamily: "'Outfit', sans-serif" }}>
+              <div
+                className="font-black text-white text-lg leading-none"
+                style={{ fontFamily: "'Outfit', sans-serif" }}
+              >
                 Gautam Dhiman
-              </p>
-              <p className="text-xs text-[var(--text-secondary)]">AI/ML · Full Stack · Cloud</p>
+              </div>
+              <div
+                className="text-xs"
+                style={{ color: 'rgba(99,102,241,0.8)', fontFamily: "'JetBrains Mono', monospace" }}
+              >
+                AI/ML · Full Stack · UI/UX
+              </div>
             </div>
           </motion.div>
 
-          {/* Nav Links */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {links.map((link) => (
+          {/* Nav links */}
+          <div className="flex flex-wrap justify-center gap-6">
+            {links.map(({ label, href }) => (
               <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => { e.preventDefault(); handleNavClick(link.href) }}
-                className="text-sm font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:-translate-y-0.5 transition-all duration-200"
+                key={label}
+                href={href}
+                onClick={(e) => { e.preventDefault(); handleNavClick(href) }}
+                className="text-sm transition-colors duration-200 underline-animated"
+                style={{ color: 'rgba(255,255,255,0.45)' }}
+                onMouseEnter={(e) => e.target.style.color = 'rgba(255,255,255,0.85)'}
+                onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.45)'}
               >
-                {link.label}
+                {label}
               </a>
             ))}
           </div>
 
-          {/* Socials */}
-          <div className="flex items-center gap-3">
+          {/* Social links */}
+          <div className="flex items-center gap-4">
             {socials.map(({ icon: Icon, href, label }) => (
               <motion.a
                 key={label}
                 href={href}
-                target={href.startsWith('http') ? '_blank' : undefined}
+                target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
-                style={{ border: '1px solid rgba(0,0,0,0.08)', color: 'var(--text-secondary)' }}
-                whileHover={{
-                  borderColor: 'rgba(0,0,0,0.2)',
-                  color: 'var(--text-primary)',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.05)',
+                className="w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200"
+                style={{
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  color: 'rgba(255,255,255,0.5)',
                 }}
+                whileHover={{
+                  y: -3,
+                  borderColor: 'rgba(99,102,241,0.6)',
+                  color: '#818cf8',
+                  background: 'rgba(99,102,241,0.1)',
+                }}
+                id={`footer-${label.toLowerCase()}`}
               >
-                <Icon size={15} />
+                <Icon size={18} />
               </motion.a>
             ))}
-
-            {/* Back to top */}
-            <motion.button
-              onClick={scrollToTop}
-              aria-label="Back to top"
-              className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 ml-2"
-              style={{
-                background: 'white',
-                border: '1px solid rgba(0,0,0,0.08)',
-                color: 'var(--text-primary)',
-              }}
-              whileHover={{ scale: 1.1, boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}
-              whileTap={{ scale: 0.95 }}
-              id="back-to-top"
-            >
-              <FiArrowUp size={15} />
-            </motion.button>
           </div>
-        </div>
 
-        {/* Bottom strip */}
-        <div
-          className="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2"
-          style={{ borderTop: '1px solid rgba(0,0,0,0.05)' }}
-        >
-          <p className="text-xs text-[var(--text-secondary)]">
-            © {new Date().getFullYear()} Gautam Dhiman. Built with React + Framer Motion.
-          </p>
-          <p className="text-xs font-semibold" style={{ color: 'var(--text-secondary)', fontFamily: "'JetBrains Mono', monospace" }}>
-            {'<'} Made with ☕ and lots of code {'>'}
-          </p>
+          {/* Divider */}
+          <div
+            className="w-full h-px"
+            style={{ background: 'linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent)' }}
+          />
+
+          {/* Copyright */}
+          <div className="flex flex-col sm:flex-row items-center gap-2 text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>
+            <span>© {new Date().getFullYear()} Gautam Dhiman. All rights reserved.</span>
+            <span className="hidden sm:inline">·</span>
+            <span className="flex items-center gap-1">
+              Built with <FiHeart size={12} className="text-red-400 mx-0.5" /> using React & Framer Motion
+            </span>
+          </div>
         </div>
       </div>
     </footer>
