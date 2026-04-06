@@ -10,8 +10,8 @@ const links = [
 ]
 
 const socials = [
-  { icon: FiGithub, href: 'https://github.com/gautamdhiman', label: 'GitHub' },
-  { icon: FiLinkedin, href: 'https://linkedin.com/in/gautamdhiman', label: 'LinkedIn' },
+  { icon: FiGithub, href: 'https://github.com/GAUTAM-DHIMAN', label: 'GitHub' },
+  { icon: FiLinkedin, href: 'https://www.linkedin.com/in/gautam-dhiman-amb/', label: 'LinkedIn' },
   { icon: FiMail, href: 'mailto:gautamdhiman@example.com', label: 'Email' },
 ]
 

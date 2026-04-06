@@ -16,8 +16,8 @@ const contactInfo = [
   {
     icon: FiGithub,
     label: 'GitHub',
-    value: 'github.com/gautamdhiman',
-    href: 'https://github.com/gautamdhiman',
+    value: 'github.com/GAUTAM-DHIMAN',
+    href: 'https://github.com/GAUTAM-DHIMAN',
     color: '#8b5cf6',
     bg: 'rgba(139,92,246,0.08)',
     border: 'rgba(139,92,246,0.2)',
@@ -25,8 +25,8 @@ const contactInfo = [
   {
     icon: FiLinkedin,
     label: 'LinkedIn',
-    value: 'linkedin.com/in/gautamdhiman',
-    href: 'https://linkedin.com/in/gautamdhiman',
+    value: 'www.linkedin.com/in/gautam-dhiman-amb/',
+    href: 'https://www.linkedin.com/in/gautam-dhiman-amb/',
     color: '#06b6d4',
     bg: 'rgba(6,182,212,0.08)',
     border: 'rgba(6,182,212,0.2)',

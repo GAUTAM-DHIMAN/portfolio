@@ -16,7 +16,7 @@ const projects = [
       'This project replicates the core Amazon shopping experience. Features include login/signup with JWT-based auth, product listing pages with search & filter, cart persistence, order checkout, and a responsive layout. Backend is built with Node.js and Express connected to MongoDB.',
     tags: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
     color: '#f59e0b',
-    github: 'https://github.com/gautamdhiman',
+    github: 'https://github.com/GAUTAM-DHIMAN',
     live: null,
     driveLink: null,
     featured: true,
@@ -34,7 +34,7 @@ const projects = [
       'A full UI/UX redesign concept for Starbucks. Built with HTML, CSS, and JavaScript — features a cinematic hero section, animated menu cards, glassmorphism components, and smooth transitions. Designed in Figma first, then developed pixel-perfect.',
     tags: ['HTML', 'CSS', 'JavaScript', 'Figma', 'UI Design'],
     color: '#10b981',
-    github: 'https://github.com/gautamdhiman',
+    github: 'https://github.com/GAUTAM-DHIMAN',
     live: null,
     driveLink: 'https://drive.google.com/drive/folders/1-o7ob7TAtDyZySBNR15doGXO0y-w6lm4?usp=sharing',
     featured: true,
@@ -52,7 +52,7 @@ const projects = [
       'Built with React, this news app pulls live articles from a news API with categorized browsing (Tech, Sports, Business, etc.), a powerful search bar, and an elegant dark UI. Responsive across all screen sizes with lazy-loaded images.',
     tags: ['React', 'News API', 'CSS', 'Dark Mode'],
     color: '#6366f1',
-    github: 'https://github.com/gautamdhiman',
+    github: 'https://github.com/GAUTAM-DHIMAN',
     live: null,
     driveLink: 'https://drive.google.com/drive/folders/1UyUCuM5z6hNZToTiEHx4x15jOz8cgF8K?usp=drive_link',
     featured: false,
@@ -70,7 +70,7 @@ const projects = [
       'A standalone UI component project showcasing a polished product card with interactive 3D hover tilt, colour swatch selection, quantity controls, animated add-to-cart button with ripple effect, and a wishlist toggle. Designed in Figma and built with HTML/CSS/JS.',
     tags: ['HTML', 'CSS', 'JavaScript', 'Figma', 'Animations'],
     color: '#ec4899',
-    github: 'https://github.com/gautamdhiman',
+    github: 'https://github.com/GAUTAM-DHIMAN',
     live: null,
     driveLink: 'https://drive.google.com/drive/folders/1kWaBm6bEscM489FuZcranwKImDNnmCKq?usp=sharing',
     featured: false,
@@ -88,7 +88,7 @@ const projects = [
       'VORTEX is a Python-powered voice assistant leveraging speech recognition, NLP, and multiple API integrations. It can answer questions via Wikipedia, fetch weather/news data, play music, open apps, set reminders, and perform desktop automation tasks.',
     tags: ['Python', 'NLP', 'Speech Recognition', 'APIs', 'Automation'],
     color: '#8b5cf6',
-    github: 'https://github.com/gautamdhiman',
+    github: 'https://github.com/GAUTAM-DHIMAN',
     live: null,
     driveLink: null,
     featured: true,
@@ -106,7 +106,7 @@ const projects = [
       'This system provides a robust evaluation framework for AI/ML models. Exposes REST API endpoints via FastAPI for submitting evaluation jobs, stores results in MySQL, maintains detailed logs, and provides a metrics dashboard for tracking model performance over time.',
     tags: ['FastAPI', 'Python', 'MySQL', 'REST API', 'Logging'],
     color: '#06b6d4',
-    github: 'https://github.com/gautamdhiman',
+    github: 'https://github.com/GAUTAM-DHIMAN',
     live: null,
     driveLink: null,
     featured: false,
@@ -124,7 +124,7 @@ const projects = [
       'A comprehensive ETL (Extract, Transform, Load) pipeline simulator. Supports ingesting data from CSV/JSON/API sources, applying intelligent data cleaning rules, running transformation scripts, validating output schemas, and exporting processed data in multiple formats.',
     tags: ['Python', 'Pandas', 'ETL', 'Data Processing', 'Automation'],
     color: '#10b981',
-    github: 'https://github.com/gautamdhiman',
+    github: 'https://github.com/GAUTAM-DHIMAN',
     live: null,
     driveLink: null,
     featured: false,
@@ -555,7 +555,7 @@ export default function Projects() {
           className="text-center mt-12"
         >
           <a
-            href="https://github.com/gautamdhiman"
+            href="https://github.com/GAUTAM-DHIMAN"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline inline-flex"

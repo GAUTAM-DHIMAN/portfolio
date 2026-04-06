@@ -369,8 +369,8 @@ export default function Hero() {
           }}
         >
           {[
-            { href: 'https://github.com/gautamdhiman', Icon: FaGithub, label: 'GitHub' },
-            { href: 'https://linkedin.com/in/gautamdhiman', Icon: FaLinkedin, label: 'LinkedIn' },
+            { href: 'https://github.com/GAUTAM-DHIMAN', Icon: FaGithub, label: 'GitHub' },
+            { href: 'https://www.linkedin.com/in/gautam-dhiman-amb/', Icon: FaLinkedin, label: 'LinkedIn' },
           ].map(({ href, Icon, label }) => (
             <motion.a
               key={label}
