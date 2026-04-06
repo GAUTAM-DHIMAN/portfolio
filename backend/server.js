@@ -74,7 +74,11 @@ app.get('/api/contact', async (req, res) => {
 })
 
 // ── Start Server ──
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`)
-  console.log(`📡 Health check: http://localhost:${PORT}/api/health`)
-})
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`)
+    console.log(`📡 Health check: http://localhost:${PORT}/api/health`)
+  })
+}
+
+module.exports = app
