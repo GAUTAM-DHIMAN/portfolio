@@ -7,8 +7,8 @@ const contactInfo = [
   {
     icon: FiMail,
     label: 'Email',
-    value: 'gautamdhiman@example.com',
-    href: 'mailto:gautamdhiman@example.com',
+    value: 'gautamdhimanamb@gmail.com',
+    href: 'mailto:gautamdhimanamb@gmail.com',
     color: '#6366f1',
     bg: 'rgba(99,102,241,0.08)',
     border: 'rgba(99,102,241,0.2)',
@@ -42,20 +42,21 @@ function InputField({ icon: Icon, label, id, type = 'text', placeholder, value, 
     borderRadius: '12px',
     color: 'var(--text-primary)',
     fontFamily: "'Inter', 'Space Grotesk', sans-serif",
-    fontSize: '0.9rem',
+    fontSize: '0.95rem',
     width: '100%',
-    padding: '12px 16px 12px 46px',
+    padding: multiline ? '18px 20px 18px 50px' : '16px 20px 16px 50px',
     outline: 'none',
     transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
     boxShadow: focused ? '0 0 0 3px rgba(99,102,241,0.12)' : 'none',
     resize: multiline ? 'vertical' : undefined,
-    minHeight: multiline ? '130px' : undefined,
+    minHeight: multiline ? '150px' : undefined,
+    lineHeight: 1.6,
   }
 
   return (
     <div>
       <label
-        className="block text-xs font-semibold mb-2 uppercase tracking-wide"
+        className="block text-xs font-semibold mb-2.5 uppercase tracking-wide"
         htmlFor={id}
         style={{ color: 'var(--text-muted)' }}
       >
@@ -63,8 +64,8 @@ function InputField({ icon: Icon, label, id, type = 'text', placeholder, value, 
       </label>
       <div className="relative">
         <Icon
-          size={16}
-          className="absolute left-3.5 top-3.5 pointer-events-none"
+          size={18}
+          className="absolute left-4 top-4 pointer-events-none"
           style={{ color: focused ? 'var(--accent-indigo)' : 'var(--text-muted)', transition: 'color 0.2s' }}
         />
         {multiline ? (
@@ -107,11 +108,15 @@ export default function Contact() {
     setStatus('loading')
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || ''
-      const res = await fetch(`${apiUrl}/api/contact`, {
+      const res = await fetch('https://formsubmit.co/ajax/gautamdhimanamb@gmail.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          _subject: `New Portfolio Message from ${form.name}`,
+        }),
       })
       if (res.ok) {
         setStatus('success')
@@ -122,10 +127,8 @@ export default function Contact() {
         setTimeout(() => setStatus('idle'), 3000)
       }
     } catch {
-      // Backend not connected — simulate success for demo
-      setStatus('success')
-      setForm({ name: '', email: '', message: '' })
-      setTimeout(() => setStatus('idle'), 6000)
+      setStatus('error')
+      setTimeout(() => setStatus('idle'), 3000)
     }
   }
 
@@ -237,8 +240,9 @@ export default function Contact() {
             className="lg:col-span-3"
           >
             <div
-              className="glass-card p-8 relative overflow-hidden"
+              className="glass-card p-10 relative overflow-hidden flex flex-col justify-center"
               style={{
+                minHeight: '480px',
                 background: 'rgba(255,255,255,0.9)',
                 border: '1px solid rgba(99,102,241,0.15)',
               }}

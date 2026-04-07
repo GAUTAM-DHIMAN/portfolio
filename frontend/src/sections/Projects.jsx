@@ -188,7 +188,7 @@ function ProjectCard({ project, index, inView, onOpen }) {
           style={{ background: `radial-gradient(circle at 50% 0%, ${project.color}10, transparent 60%)` }}
         />
 
-        <div className="p-5 flex flex-col flex-1">
+        <div className="p-6 md:p-7 flex flex-col flex-1">
           {/* Header */}
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-3">

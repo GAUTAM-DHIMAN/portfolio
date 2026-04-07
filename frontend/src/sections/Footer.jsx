@@ -12,7 +12,7 @@ const links = [
 const socials = [
   { icon: FiGithub, href: 'https://github.com/GAUTAM-DHIMAN', label: 'GitHub' },
   { icon: FiLinkedin, href: 'https://www.linkedin.com/in/gautam-dhiman-amb/', label: 'LinkedIn' },
-  { icon: FiMail, href: 'mailto:gautamdhiman@example.com', label: 'Email' },
+  { icon: FiMail, href: 'mailto:gautamdhimanamb@gmail.com', label: 'Email' },
 ]
 
 export default function Footer() {
